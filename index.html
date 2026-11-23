@@ -5,85 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Cleanprofs · Bel Colin (demo)</title>
+<link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --blue:#005BB1; --blue-dark:#00427f; --green:#64B300; --green-light:#8CDB28; --orange:#FF7500;
-    --ink:#1d2733; --muted:#5b6876; --bg:#f4f8fb; --card:#ffffff; --line:#dfe7ee;
-  }
+  :root{--blue:#005BB1;--blue-dark:#00427f;--green:#64B300;--green-light:#8CDB28}
   *{box-sizing:border-box}
-  body{margin:0;font-family:Poppins,system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
-  a{color:inherit}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+  body{margin:0;min-height:100vh;display:flex;flex-direction:column;font-family:Poppins,system-ui,sans-serif;color:#fff;
+    background:linear-gradient(140deg,var(--blue) 0%,#0a73d1 65%,#1a86e0 100%)}
+  header{padding:22px 24px}
+  .logo{font-weight:800;font-size:22px;letter-spacing:.5px;display:flex;align-items:center;gap:10px}
+  .logo i{width:26px;height:26px;border-radius:50% 50% 50% 4px;background:var(--green);transform:rotate(-45deg)}
+  main{flex:1;display:grid;place-items:center;text-align:center;padding:24px 16px 96px}
+  h1{font-size:clamp(30px,5vw,46px);line-height:1.15;margin:0 0 14px;font-weight:800}
+  h1 span{color:var(--green-light)}
+  p{font-size:18px;margin:0 auto 32px;max-width:460px;opacity:.95}
+  .call{display:inline-flex;align-items:center;gap:12px;border:0;border-radius:40px;padding:18px 38px;background:var(--green);color:#fff;
+    font:600 19px Poppins,sans-serif;cursor:pointer;box-shadow:0 12px 30px rgba(0,30,70,.3)}
+  .call:hover{filter:brightness(1.06)}
+  .or{display:block;margin-top:18px;font-size:14px;opacity:.85}
 
-  /* top bar + header */
-  .topbar{background:var(--blue-dark);color:#cfe3f7;font-size:13px}
-  .topbar .wrap{display:flex;justify-content:space-between;gap:12px;padding-top:7px;padding-bottom:7px}
-  header{background:var(--blue);color:#fff;position:sticky;top:0;z-index:5;box-shadow:0 2px 10px rgba(0,0,0,.08)}
-  header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:72px}
-  .logo{font-weight:800;font-size:24px;letter-spacing:.5px;display:flex;align-items:center;gap:10px;text-decoration:none}
-  .logo .drop{width:30px;height:30px;border-radius:50% 50% 50% 4px;background:var(--green);transform:rotate(-45deg);display:inline-block}
-  nav{display:flex;gap:26px;font-size:15px;font-weight:500}
-  nav a{text-decoration:none;opacity:.92}
-  .head-call{display:flex;align-items:center;gap:10px;background:var(--orange);color:#fff;border:0;border-radius:40px;
-    padding:11px 20px;font:600 15px Poppins,sans-serif;cursor:pointer}
-  .head-call:hover{filter:brightness(1.06)}
-
-  /* hero */
-  .hero{background:linear-gradient(120deg,var(--blue) 0%,#0a73d1 60%,#1a86e0 100%);color:#fff;overflow:hidden}
-  .hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;padding-top:64px;padding-bottom:72px}
-  .hero h1{font-size:46px;line-height:1.12;margin:0 0 16px;font-weight:800}
-  .hero h1 span{color:var(--green-light)}
-  .hero p{font-size:18px;opacity:.95;margin:0 0 28px;max-width:520px}
-  .usps{list-style:none;padding:0;margin:0 0 30px;display:grid;gap:8px}
-  .usps li{display:flex;gap:10px;align-items:center}
-  .usps li:before{content:"✓";display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--green);font-size:13px;font-weight:700}
-  .btn{display:inline-flex;align-items:center;gap:10px;border:0;border-radius:40px;padding:15px 28px;font:600 16px Poppins,sans-serif;cursor:pointer;text-decoration:none}
-  .btn-green{background:var(--green);color:#fff}
-  .btn-ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.7)}
-  .hero-card{background:#fff;color:var(--ink);border-radius:22px;padding:26px;box-shadow:0 20px 50px rgba(0,30,70,.25)}
-  .hero-card h3{margin:0 0 6px;font-size:20px}
-  .hero-card .price{font-size:40px;font-weight:800;color:var(--blue)}
-  .hero-card small{color:var(--muted)}
-
-  /* steps */
-  section{padding:64px 0}
-  .title{font-size:32px;font-weight:800;margin:0 0 10px;text-align:center}
-  .sub{color:var(--muted);text-align:center;margin:0 auto 40px;max-width:620px}
-  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-  .step{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px}
-  .step .n{width:38px;height:38px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:700;margin-bottom:14px}
-  .step h4{margin:0 0 6px;font-size:18px}
-  .step p{margin:0;color:var(--muted);font-size:15px}
-
-  /* contact */
-  .contact{background:#fff;border-top:1px solid var(--line)}
-  .contact .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:stretch}
-  .callcard{background:linear-gradient(135deg,var(--blue-dark),var(--blue));color:#fff;border-radius:24px;padding:34px;display:flex;flex-direction:column;gap:18px}
-  .callcard .label{font-size:14px;text-transform:uppercase;letter-spacing:1.4px;opacity:.8}
-  .callcard .num{font-size:40px;font-weight:800;letter-spacing:.5px}
-  .callcard .hours{opacity:.9}
-  .callcard .live{display:inline-flex;align-items:center;gap:8px;font-size:14px;background:rgba(255,255,255,.12);border-radius:30px;padding:6px 12px;width:fit-content}
-  .callcard .live i{width:9px;height:9px;border-radius:50%;background:var(--green-light);box-shadow:0 0 0 0 rgba(140,219,40,.7);animation:pulse 1.8s infinite}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(140,219,40,.7)}70%{box-shadow:0 0 0 10px rgba(140,219,40,0)}100%{box-shadow:0 0 0 0 rgba(140,219,40,0)}}
-  .bigcall{font-size:19px;padding:18px 34px;background:var(--green);color:#fff;width:fit-content}
-  .faq{display:grid;gap:12px}
-  .faq div{background:var(--bg);border-radius:14px;padding:16px 18px}
-  .faq b{display:block;margin-bottom:4px}
-  .faq span{color:var(--muted);font-size:14px}
-  footer{background:var(--blue-dark);color:#bcd3ea;font-size:14px;padding:28px 0 90px}
-
-  /* demo label */
-  .demo-tag{position:fixed;left:16px;bottom:16px;z-index:20;background:#111;color:#fff;font:500 12px/1.35 Poppins,sans-serif;
-    border-radius:12px;padding:10px 12px;max-width:250px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+  .demo-tag{position:fixed;right:16px;top:16px;z-index:20;background:#111;color:#fff;font:500 12px/1.35 Poppins,sans-serif;
+    border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:10px}
   .demo-tag b{color:var(--green-light)}
-  .demo-tag button{margin-top:8px;background:#fff;color:#111;border:0;border-radius:8px;padding:6px 10px;font:600 12px Poppins,sans-serif;cursor:pointer}
-  .hint{position:fixed;right:24px;bottom:110px;z-index:20;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;
-    max-width:250px;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.15);display:none}
-  .demo-tag{left:auto;right:16px;bottom:auto;top:128px}
-  .demo-tag ul{margin:6px 0 0;padding-left:16px}
+  .demo-tag button{background:#fff;color:#111;border:0;border-radius:8px;padding:5px 9px;font:600 12px Poppins,sans-serif;cursor:pointer}
+
   /* The call-only widget: a phone screen over the page */
   .phone-backdrop{position:fixed;inset:0;z-index:40;background:rgba(10,20,35,.45);display:none;align-items:center;justify-content:center;padding:16px}
   .phone-backdrop.open{display:flex}
@@ -92,81 +39,21 @@
   .phone iframe{width:100%;height:100%;border:0;display:block}
   .phone-close{position:absolute;top:10px;right:12px;z-index:2;width:32px;height:32px;border-radius:50%;border:0;background:rgba(255,255,255,.12);
     color:#fff;font-size:18px;cursor:pointer}
-  .alt-call{margin-top:6px;font-size:14px;opacity:.9}
-
-  @media (max-width:860px){
-    nav{display:none}
-    .hero .wrap,.contact .grid{grid-template-columns:1fr}
-    .hero h1{font-size:34px}
-    .steps{grid-template-columns:1fr}
-    .callcard .num{font-size:32px}
-    .head-call span.t{display:none}
-  }
 </style>
 </head>
 <body>
-  <div class="topbar"><div class="wrap"><span>Containerreiniging aan huis, elke 4 weken</span><span>Klantenservice: 088 024 0456</span></div></div>
-  <header>
-    <div class="wrap">
-      <a class="logo" href="#"><i class="drop"></i>CLEANPROFS</a>
-      <nav><a href="#">Hoe werkt het</a><a href="#">Tarieven</a><a href="#">Zakelijk</a><a href="#contact">Klantenservice</a></nav>
-      <button class="head-call" data-call>📞 <span class="t">Bel klantenservice</span></button>
+  <header><div class="logo"><i></i>CLEANPROFS</div></header>
+
+  <main>
+    <div>
+      <h1>Vraag over uw <span>reiniging</span>?</h1>
+      <p>Niet gereinigd, wanneer we weer komen of een vraag over uw factuur: bel Colin, hij neemt direct op.</p>
+      <button class="call" data-call>📞 Bel Colin</button>
+      <span class="or">of chat linksonder</span>
     </div>
-  </header>
+  </main>
 
-  <div class="hero">
-    <div class="wrap">
-      <div>
-        <h1>Uw container <span>fris en schoon</span>, zonder gedoe</h1>
-        <p>Wij reinigen uw rest-, GFT- en plasticcontainer aan huis, direct na het legen door de gemeente.</p>
-        <ul class="usps"><li>Elke 4 weken een schone container</li><li>Milieuvriendelijk gereinigd</li><li>Maandelijks opzegbaar</li></ul>
-        <a class="btn btn-green" href="#">Bekijk tarieven</a>
-        <button class="btn btn-ghost" data-call style="margin-left:10px">📞 Bel ons</button>
-      </div>
-      <div class="hero-card">
-        <h3>Vraag over uw reiniging?</h3>
-        <p style="margin:0 0 14px;color:#5b6876">Niet gereinigd, vraag over uw factuur of wanneer we weer komen? Bel ons, Colin staat direct voor u klaar.</p>
-        <button class="btn btn-green" data-call style="width:100%;justify-content:center">📞 Bel 088 024 0456</button>
-        <p style="margin:12px 0 0"><small>Geen wachtrij · ook 's avonds en in het weekend</small></p>
-      </div>
-    </div>
-  </div>
-
-  <section>
-    <div class="wrap">
-      <h2 class="title">Zo werkt het</h2>
-      <p class="sub">Uw container wordt op dezelfde dag als de gemeentelijke lediging gereinigd.</p>
-      <div class="steps">
-        <div class="step"><div class="n">1</div><h4>Zet uw container buiten</h4><p>Op de dag van de lediging, met de stickers goed zichtbaar.</p></div>
-        <div class="step"><div class="n">2</div><h4>Wij reinigen tot 19:00 uur</h4><p>Laat de container leeg buiten staan tot wij langs zijn geweest.</p></div>
-        <div class="step"><div class="n">3</div><h4>Fris tot de volgende keer</h4><p>Elke 4 weken komen wij terug, u hoeft niets te doen.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="contact" id="contact">
-    <div class="wrap grid">
-      <div class="callcard">
-        <span class="label">Klantenservice</span>
-        <span class="num">088 024 0456</span>
-        <span class="live"><i></i> Colin neemt direct op</span>
-        <span class="hours">Colin is onze digitale collega. Hij kijkt in uw gegevens en de planning, en zet door naar een collega als dat nodig is.</span>
-        <button class="btn bigcall" data-call>📞 Bel nu</button>
-      </div>
-      <div class="faq">
-        <div><b>Mijn container is niet gereinigd</b><span>Colin kijkt in de planning wat er gebeurd is en wat de mogelijkheden zijn.</span></div>
-        <div><b>Wanneer komen jullie weer?</b><span>Colin noemt uw volgende reinigingsdatum.</span></div>
-        <div><b>Vraag over mijn factuur</b><span>Bedrag, datum en betaalstatus van uw laatste factuur.</span></div>
-      </div>
-    </div>
-  </section>
-
-  <footer><div class="wrap">Cleanprofs containerreiniging · Demopagina, niet de echte website</div></footer>
-
-  <div class="demo-tag"><b>Demo</b> · Colin, gebouwd door Neople.
-    <ul><li><b>Bel ons</b>: bellen (stem van ElevenLabs, antwoorden van Colin)</li><li>Linksonder: chatten (of praten)</li></ul>
-    <button id="newcall">Nieuw gesprek</button></div>
-  <div class="hint" id="hint">Tik in het venster op de microfoon (<b>Praat met Colin</b>) en vertel waar het over gaat.</div>
+  <div class="demo-tag"><span><b>Demo</b> · gebouwd door Neople</span><button id="newcall">Nieuw gesprek</button></div>
 
   <div class="phone-backdrop" id="phone" aria-hidden="true">
     <div class="phone" role="dialog" aria-label="Bellen met Colin">
@@ -175,9 +62,8 @@
     </div>
   </div>
 
-
 <script>
-  // Status Test: the widget shows only after the page was opened once with ?neople_chat=test in this tab.
+  // ?nieuw=1 starts a fresh conversation: forget the widget's stored session.
   (function () {
     var u = new URL(location.href);
     if (u.searchParams.get('nieuw') === '1') {
@@ -194,7 +80,7 @@
 </script>
 <script src="https://chat.endpoints.neople-chat.cloud.goog/v1/widget.js" data-widget="wk_N9ZxoZ0p-mtGv0F5xaKU31" data-language="nl" async></script>
 <script>
-  // "Bel ons": the call-only page of Neople Chat (/p/{key}), as a phone screen over the page. It calls at once.
+  // "Bel Colin": the call-only page of Neople Chat (/p/{key}), as a phone screen over the page. It calls at once.
   var PHONE_URL = 'https://chat.endpoints.neople-chat.cloud.goog/p/wk_N9ZxoZ0p-mtGv0F5xaKU31?lang=nl&autostart=1';
   var phone = document.getElementById('phone');
   var phoneFrame = document.getElementById('phone-frame');
