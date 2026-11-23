@@ -82,6 +82,17 @@
   .demo-tag button{margin-top:8px;background:#fff;color:#111;border:0;border-radius:8px;padding:6px 10px;font:600 12px Poppins,sans-serif;cursor:pointer}
   .hint{position:fixed;right:24px;bottom:110px;z-index:20;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;
     max-width:250px;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.15);display:none}
+  .demo-tag{left:auto;right:16px;bottom:auto;top:128px}
+  .demo-tag ul{margin:6px 0 0;padding-left:16px}
+  /* The call-only widget: a phone screen over the page */
+  .phone-backdrop{position:fixed;inset:0;z-index:40;background:rgba(10,20,35,.45);display:none;align-items:center;justify-content:center;padding:16px}
+  .phone-backdrop.open{display:flex}
+  .phone{position:relative;width:min(360px,100%);height:min(620px,calc(100vh - 32px));border-radius:34px;overflow:hidden;
+    background:#0f1720;box-shadow:0 30px 80px rgba(0,0,0,.45);border:8px solid #1c2633}
+  .phone iframe{width:100%;height:100%;border:0;display:block}
+  .phone-close{position:absolute;top:10px;right:12px;z-index:2;width:32px;height:32px;border-radius:50%;border:0;background:rgba(255,255,255,.12);
+    color:#fff;font-size:18px;cursor:pointer}
+  .alt-call{margin-top:6px;font-size:14px;opacity:.9}
 
   @media (max-width:860px){
     nav{display:none}
@@ -141,6 +152,7 @@
         <span class="live"><i></i> Colin neemt direct op</span>
         <span class="hours">Colin is onze digitale collega. Hij kijkt in uw gegevens en de planning, en zet door naar een collega als dat nodig is.</span>
         <button class="btn bigcall" data-call>📞 Bel nu</button>
+        <span class="alt-call">Of bel Colin met de stem van ElevenLabs: de knop rechtsonder.</span>
       </div>
       <div class="faq">
         <div><b>Mijn container is niet gereinigd</b><span>Colin kijkt in de planning wat er gebeurd is en wat de mogelijkheden zijn.</span></div>
@@ -152,9 +164,20 @@
 
   <footer><div class="wrap">Cleanprofs containerreiniging · Demopagina, niet de echte website</div></footer>
 
-  <div class="demo-tag"><b>Demo</b> · Colin aan de telefoon, gebouwd door Neople. Klik op een belknop om te bellen.<br>
+  <div class="demo-tag"><b>Demo</b> · Colin, gebouwd door Neople. Drie manieren:
+    <ul><li><b>Bel ons</b>: bellen met Neople-stem</li><li>Rechtsonder: bellen met ElevenLabs-stem</li><li>Linksonder: chatten (of praten)</li></ul>
     <button id="newcall">Nieuw gesprek</button></div>
   <div class="hint" id="hint">Tik in het venster op de microfoon (<b>Praat met Colin</b>) en vertel waar het over gaat.</div>
+
+  <div class="phone-backdrop" id="phone" aria-hidden="true">
+    <div class="phone" role="dialog" aria-label="Bellen met Colin">
+      <button class="phone-close" id="phone-close" aria-label="Sluiten">×</button>
+      <iframe id="phone-frame" title="Bellen met Colin" allow="microphone; autoplay"></iframe>
+    </div>
+  </div>
+
+  <elevenlabs-convai agent-id="agent_5501m83xnfhfe0dr5w1snrq37cpq"></elevenlabs-convai>
+  <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
 
 <script>
   // Status Test: the widget shows only after the page was opened once with ?neople_chat=test in this tab.
@@ -174,15 +197,24 @@
 </script>
 <script src="https://chat.endpoints.neople-chat.cloud.goog/v1/widget.js" data-widget="wk_N9ZxoZ0p-mtGv0F5xaKU31" data-language="nl" async></script>
 <script>
+  // "Bel ons": the call-only page of Neople Chat (/p/{key}), as a phone screen over the page. It calls at once.
+  var PHONE_URL = 'https://chat.endpoints.neople-chat.cloud.goog/p/wk_N9ZxoZ0p-mtGv0F5xaKU31?lang=nl&autostart=1';
+  var phone = document.getElementById('phone');
+  var phoneFrame = document.getElementById('phone-frame');
   function call() {
-    var nc = window.NeopleChat;
-    // talk() opens the window straight into a live call, once the deployed loader has it; until then open() + a hint.
-    if (nc && typeof nc.talk === 'function') { nc.talk(); return; }
-    nc.open();
-    var hint = document.getElementById('hint');
-    hint.style.display = 'block';
-    setTimeout(function () { hint.style.display = 'none'; }, 7000);
+    try { window.NeopleChat.close(); } catch (e) {}
+    phoneFrame.src = PHONE_URL;
+    phone.classList.add('open');
+    phone.setAttribute('aria-hidden', 'false');
   }
+  function hangUp() {
+    // Taking the page away ends the call: the microphone and the connection go with it.
+    phoneFrame.src = 'about:blank';
+    phone.classList.remove('open');
+    phone.setAttribute('aria-hidden', 'true');
+  }
+  document.getElementById('phone-close').addEventListener('click', hangUp);
+  phone.addEventListener('click', function (event) { if (event.target === phone) hangUp(); });
   document.querySelectorAll('[data-call]').forEach(function (b) { b.addEventListener('click', call); });
   document.getElementById('newcall').addEventListener('click', function () {
     try { window.NeopleChat.shutdown(); } catch (e) {}
